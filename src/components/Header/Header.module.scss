@@ -1,0 +1,31 @@
+header{
+    border-bottom: 1px solid #EAEAEA;
+  
+    padding: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  
+    .headerLeft{
+      display: flex;
+      align-items: center;
+  
+      img{
+        margin-right: 16px;
+      }
+    }
+  
+    .headerRight{
+      display: flex;
+      list-style: none;
+  
+      img, span{
+        cursor: pointer;
+        margin-right: 30px;
+      }
+    }
+  
+    .logoName{
+      text-transform: uppercase;
+    }
+  }
