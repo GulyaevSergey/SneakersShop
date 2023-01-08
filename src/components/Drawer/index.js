@@ -1,36 +1,39 @@
 import drawerStyles from "./Drawer.module.scss";
 
-function Drawer() {
+function Drawer({ onClose, items }) {
     return (
         <div className={drawerStyles.overlay}>
             <div className={drawerStyles.drawer}>
                 <h2>
-                    Корзина{" "}
+                    Корзина
                     <img
+                        onClick={onClose}
                         className={drawerStyles.removeBtn}
                         src="/img/btn-remove.svg"
-                        alt="remove"
+                        alt="close"
                     />
                 </h2>
                 <div className={drawerStyles.items}>
-                    <div className={drawerStyles.cartItem}>
-                        <img
-                            className={drawerStyles.cartImage}
-                            width={70}
-                            height={70}
-                            src="/img/sneakers/Jordan Air Jordan 11.jpg"
-                            alt="Jordan Air Jordan 11"
-                        />
-                        <div className={drawerStyles.cartDesc}>
-                            <p>Мужские кроссовки Jordan Air Jordan 11</p>
-                            <b>12 990 руб.</b>
+                    {items.map((obj) => (
+                        <div className={drawerStyles.cartItem}>
+                            <img
+                                className={drawerStyles.cartImage}
+                                width={70}
+                                height={70}
+                                src={obj.imageUrl}
+                                alt={obj.name}
+                            />
+                            <div className={drawerStyles.cartDesc}>
+                                <p>{obj.name}</p>
+                                <b>{obj.price} руб.</b>
+                            </div>
+                            <img
+                                className={drawerStyles.removeBtn}
+                                src="/img/btn-remove.svg"
+                                alt="remove"
+                            />
                         </div>
-                        <img
-                            className={drawerStyles.removeBtn}
-                            src="/img/btn-remove.svg"
-                            alt="remove"
-                        />
-                    </div>
+                    ))}
                 </div>
                 <ul className={drawerStyles.cartFooter}>
                     <li className={drawerStyles.cartFooterPrice}>

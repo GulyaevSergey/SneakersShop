@@ -1,37 +1,36 @@
+import { useContext, useEffect, useState } from "react";
 import Card from "./components/Card";
 import Header from "./components/Header";
 import Drawer from "./components/Drawer";
 
-const menSneakers = "Мужские Кроссовки";
-
-const arr = [
-    {
-        name: menSneakers + " " + "Nike blazer Mid Suede",
-        price: 12990,
-        imageUrl: "/img/sneakers/Nike_blazer_Mid Suede Green.jpg",
-    },
-    {
-        name: menSneakers + " " + "Nike Air Max 270",
-        price: 12990,
-        imageUrl: "/img/sneakers/Nike Air Max 270.jpg",
-    },
-    {
-        name: menSneakers + " " + "Nike Blazer Mid Suede",
-        price: 8499,
-        imageUrl: "/img/sneakers/Nike Blazer Mid Suede White.jpg",
-    },
-    {
-        name: menSneakers + " " + "Puma X Aka Boku Future Rider",
-        price: 15990,
-        imageUrl: "/img/sneakers/Puma X Aka Boku Future Rider.jpg",
-    },
-];
-
 function App() {
+    const [items, setItems] = useState([]);
+    const [cartItems, setCartIrems] = useState([]);
+    const [cartOpened, setCartOpened] = useState(false);
+
+    useEffect(() => {
+        fetch("https://63b9b66f56043ab3c78d50d0.mockapi.io/items")
+            .then((res) => {
+                return res.json();
+            })
+            .then((json) => {
+                setItems(json);
+            });
+    }, []);
+
+    const onAddToCart = (obj) => {
+        setCartIrems((prev) => [...prev, obj]);
+    };
+
     return (
         <div className="wrapper">
-            <Drawer />
-            <Header />
+            {cartOpened ? (
+                <Drawer
+                    items={cartItems}
+                    onClose={() => setCartOpened(false)}
+                />
+            ) : null}
+            <Header onClickCart={() => setCartOpened(true)} />
             <div className="content">
                 <div className="contentTitle">
                     <h1>Все кроссовки</h1>
@@ -42,12 +41,18 @@ function App() {
                 </div>
 
                 <div className="sneakers">
-                    {arr.map((obj) => {
+                    {items.map((item) => {
                         return (
                             <Card
-                                name={obj.name}
-                                price={obj.price}
-                                imageUrl={obj.imageUrl}
+                                name={item.name}
+                                price={item.price}
+                                imageUrl={item.imageUrl}
+                                onFavorite={() =>
+                                    console.log("Добавили в закладки")
+                                }
+                                onPlus={(obj) => {
+                                    onAddToCart(obj);
+                                }}
                             />
                         );
                     })}
