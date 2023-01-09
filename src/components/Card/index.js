@@ -16,7 +16,7 @@ function Card({ name, imageUrl, price, onFavorite, onPlus }) {
                     onClick={onFavorite}
                     src="/img/favorite-none.svg"
                     alt="favorite"
-                />
+                />  
             </div>
             <img width={133} height={112} src={imageUrl} alt={name} />
             <h5>{name}</h5>
