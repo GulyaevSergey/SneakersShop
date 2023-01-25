@@ -6,6 +6,7 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Favorites from "./pages/Favorites";
 import AppContext from "./context";
+import Orders from "./pages/Orders";
 
 function App() {
     const [cartOpened, setCartOpened] = useState(false);
@@ -93,22 +94,27 @@ function App() {
     return (
         <AppContext.Provider
             value={{
-                items,
-                cartItems,
                 favorites,
+                cartItems,
+                items,
                 isItemAdded,
-                setCartOpened,
-                setCartItems,
+                searchValue,
+                setSearchValue,
+                onChangeSearchInput,
+                onAddToFavorite,
+                onAddToCart,
+                isLoading,
             }}
         >
             <div className="wrapper">
-                {cartOpened ? (
+                <div>
                     <Drawer
                         items={cartItems}
                         onClose={() => setCartOpened(false)}
                         onRemove={onRemoveItem}
+                        opened={cartOpened}
                     />
-                ) : null}
+                </div>
 
                 <Header onClickCart={() => setCartOpened(true)} />
 
@@ -123,6 +129,7 @@ function App() {
                                 searchValue={searchValue}
                                 setSearchValue={setSearchValue}
                                 onChangeSearchInput={onChangeSearchInput}
+                                isItemAdded={isItemAdded}
                                 onAddToFavorite={onAddToFavorite}
                                 onAddToCart={onAddToCart}
                                 isLoading={isLoading}
@@ -135,6 +142,7 @@ function App() {
                             <Favorites onAddToFavorite={onAddToFavorite} />
                         }
                     ></Route>
+                    <Route path="/orders" element={<Orders />}></Route>
                 </Routes>
             </div>
         </AppContext.Provider>

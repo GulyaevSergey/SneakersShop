@@ -6,11 +6,12 @@ import axios from "axios";
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-function Drawer({ onClose, onRemove, items = [] }) {
+function Drawer({ onClose, onRemove, items = [], opened }) {
     const { cartItems, setCartItems } = useContext(AppContext);
     const [orderId, setOrderId] = useState(null);
     const [isOrderComlete, setIsOrderComplete] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const totalPrice = cartItems.reduce((sum, obj) => obj.price + sum, 0);
 
     const onClickOrder = async () => {
         try {
@@ -39,7 +40,7 @@ function Drawer({ onClose, onRemove, items = [] }) {
     };
 
     return (
-        <div className={drawerStyles.overlay}>
+        <div className={`${drawerStyles.overlay} ${opened ? drawerStyles.overlayVisible : ""}`}>
             <div className={drawerStyles.drawer}>
                 <h2>
                     Корзина
@@ -84,12 +85,12 @@ function Drawer({ onClose, onRemove, items = [] }) {
                             <li className={drawerStyles.cartFooterPrice}>
                                 <span>Итого:</span>
                                 <div></div>
-                                <b>12 990 руб.</b>
+                                <b>{totalPrice} руб.</b>
                             </li>
                             <li className={drawerStyles.cartFooterDelivery}>
                                 <span>Доставка:</span>
                                 <div></div>
-                                <b>499 руб.</b>
+                                <b>{totalPrice * 0.05} руб.</b>
                             </li>
                         </ul>
                         <button

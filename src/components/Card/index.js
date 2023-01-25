@@ -53,15 +53,17 @@ function Card({
             ) : (
                 <>
                     <div className={cardStyles.favorite}>
-                        <img
-                            onClick={onClickFavorite}
-                            src={
-                                isFavorite
-                                    ? "/img/favorite-none.svg"
-                                    : "/img/favorite-like.svg"
-                            }
-                            alt="favorite"
-                        />
+                        {onFavorite && (
+                            <img
+                                onClick={onClickFavorite}
+                                src={
+                                    isFavorite
+                                        ? "/img/favorite-none.svg"
+                                        : "/img/favorite-like.svg"
+                                }
+                                alt="favorite"
+                            />
+                        )}
                     </div>
                     <img width={133} height={112} src={imageUrl} alt={name} />
                     <h5>{name}</h5>
@@ -71,15 +73,17 @@ function Card({
                             <b>{price} руб.</b>
                         </div>
 
-                        <img
-                            onClick={onClickPlus}
-                            src={
-                                isItemAdded(id)
-                                    ? "/img/btn-checked.svg"
-                                    : "/img/btn-plus.svg"
-                            }
-                            alt="plus"
-                        />
+                        {onPlus && (
+                            <img
+                                onClick={onClickPlus}
+                                src={
+                                    isItemAdded(id)
+                                        ? "/img/btn-checked.svg"
+                                        : "/img/btn-plus.svg"
+                                }
+                                alt="plus"
+                            />
+                        )}
                     </div>
                 </>
             )}
