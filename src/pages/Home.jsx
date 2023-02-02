@@ -33,7 +33,7 @@ function Home({items,
                         : "Все кроссовки"}
                 </h1>
                 <div className="searchBlock">
-                    <img src="/img/search.svg" alt="search" />
+                    <img src="img/search.svg" alt="search" />
                     <input
                         value={searchValue}
                         onChange={onChangeSearchInput}
